@@ -1,0 +1,63 @@
+/dts-v1/;
+
+/ {
+	compatible = "brcm,bcm2708";
+
+	fragment@0 {
+		target = <0xffffffff>;
+
+		__overlay__ {
+			#address-cells = <0x1>;
+			#size-cells = <0x0>;
+
+			ft6236@5d {
+				compatible = "goodix,gt911";
+				reg = <0x5d>;
+				interrupt-parent = <0xffffffff>;
+				interrupts = <0x1b 0x2>;
+				touchscreen-size-x = <0x280>;
+				touchscreen-size-y = <0x1e0>;
+				touchscreen-x-mm = <0x46>;
+				touchscreen-y-mm = <0x35>;
+				phandle = <0x1>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <0x1>;
+
+		__overlay__ {
+			touchscreen-swapped-x-y;
+		};
+	};
+
+	fragment@3 {
+		target = <0x1>;
+
+		__overlay__ {
+			touchscreen-inverted-x;
+		};
+	};
+
+	__overrides__ {
+		touchscreen-inverted-x = [00 00 00 01 2b 32 00];
+		touchscreen-swapped-x-y = [00 00 00 00 2d 31 00];
+	};
+
+	__fixups__ {
+		i2c_gpio = "/fragment@0:target:0";
+		gpio = "/fragment@0/__overlay__/ft6236@5d:interrupt-parent:0";
+	};
+
+	__local_fixups__ {
+
+		fragment@1 {
+			target = <0x0>;
+		};
+
+		fragment@3 {
+			target = <0x0>;
+		};
+	};
+};

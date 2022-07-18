@@ -1,0 +1,31 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2708";
+
+
+	fragment@0 {
+		target-path = "/i2c@0";
+		__overlay__{
+			#address-cells = < 0x01 >;
+			#size-cells = < 0x00 >;
+			ft6236@5d {
+				compatible = "goodix,gt911";
+				touchscreen-x-mm = <0x46>;
+				touchscreen-y-mm = <0x35>;
+				interrupt-parent = <0xc>;
+				interrupts = <0x1b 0x2>;
+				touchscreen-size-x = <640>;
+				touchscreen-size-y = <480>;
+				touchscreen-swapped-x-y;
+				phandle = <0x1>;
+				reg = <0x5d>;
+				touchscreen-inverted-x;
+
+			};
+		};
+	};
+
+
+};

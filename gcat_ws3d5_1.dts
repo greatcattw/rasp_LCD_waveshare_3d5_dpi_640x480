@@ -1,0 +1,62 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "brcm,bcm2708";
+
+
+	fragment@0 {
+		target-path = "/soc/gpio@7e200000";
+		__overlay__{
+			dpi18_pins:dpi18_pins {
+				brcm,pins = <0x0 0x1 0x2 0x3 0x4 0x5 0x6 0x7 0x8 0x9 0xc 0xd 0xe 0xf 0x10 0x11 0x14 0x15 0x16 0x17 0x18 0x19>;
+				phandle = <0x01>;
+				brcm,pull = <0x0>;
+				brcm,function = <0x6>;
+			};
+		};
+	};
+
+	fragment@1 {
+		target-path = "/soc";
+		__overlay__{
+			fb {
+				pinctrl-0 = <&dpi18_pins>;
+				pinctrl-names = "default";
+			};
+		};
+	};
+
+	fragment@2 {
+		target-path = "/";
+		__overlay__ {
+			rpi_backlight {
+				compatible = "gpio-backlight";
+				gpios = < 0xc 0x12 0x01 >;
+				default-on;
+			};
+
+		};
+	};
+
+	fragment@3 {
+		target-path = "/";
+		__overlay__ {
+			i2c@0 {
+				compatible = "i2c-gpio";
+				gpios = < 0xc 0xa 0x0 0xc 0xb 0x0>;
+				i2c-gpio,delay-us = < 0x04 >;
+				#address-cells = < 0x01 >;
+				#size-cells = < 0x00 >;
+				phandle = <0x2>;
+			};
+		};
+	};
+	fragment@4 {
+		target-path = "/__symbols__";
+
+		__overlay__ {
+			i2c_gpio = "/i2c@0";
+		};
+	};
+};
