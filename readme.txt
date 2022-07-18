@@ -1,0 +1,1 @@
+Tidy dtbo/dts
