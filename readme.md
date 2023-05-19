@@ -2,7 +2,7 @@
 
 Tidy dtbo/dts <BR>
 
-![PIC](P_20220714_112438.jpg) <BR><BR>
+![PIC](pic/P_20220714_112438.jpg) <BR><BR>
   
 Good DTS learning material. <BR>
 If the document help you, how about buy street cats a fish can ? <BR>
